@@ -1,0 +1,9 @@
+.grid-template {
+    grid-template-columns: repeat(4, 6rem);
+    grid-template-rows: minmax(7rem, auto) repeat(5, 6rem);
+}
+
+.hover-focus:hover, 
+.hover-focus:focus {
+background-color: rgba(255,255,255,0.9);
+}
