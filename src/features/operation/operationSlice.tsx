@@ -17,8 +17,9 @@ export const operationSlice = createSlice({
     initialState,
     reducers: {
         add_digit: (state, action: PayloadAction<string>) => {
-            state.currentOperand = action.payload
+            state.currentOperand = `${state.currentOperand || ""}${action.payload}`
         }
+        // choose_operation: 
     }
 
 })
