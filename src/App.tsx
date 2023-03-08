@@ -8,7 +8,6 @@ import OperationButton from './features/operation/OperationButton';
 function App() {
   const operand = useSelector(getOperand)
 
-
   return (
     <div className="grid grid-template">
       <div className="col-span-full bg-black bg-opacity-75 flex flex-col justify-around items-end p-3 break-all">
