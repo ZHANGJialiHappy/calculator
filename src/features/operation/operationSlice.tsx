@@ -17,14 +17,20 @@ export const operationSlice = createSlice({
     initialState,
     reducers: {
         add_digit: (state, action: PayloadAction<string>) => {
+            if(action.payload === "0" && state.currentOperand === "0") return state
+            if(action.payload === "." && state.currentOperand.includes(".")) return state
             state.currentOperand = `${state.currentOperand || ""}${action.payload}`
-        }
+        },
         // choose_operation: 
+        clear: (state) => {
+            state.currentOperand = "";
+            state.operation = "";
+            state.previousOperand = "";
+        }
+        // return{}
     }
-
 })
 
 export const getOperand=(state: RootState) => state.operation; 
-// operation ?
-export const {add_digit} = operationSlice.actions
+export const {add_digit, clear} = operationSlice.actions
 export default operationSlice.reducer

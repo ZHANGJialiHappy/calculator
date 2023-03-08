@@ -2,6 +2,7 @@ import './App.css';
 import { useSelector} from 'react-redux';
 import { getOperand } from './features/operation/operationSlice';
 import DigitButton from './features/operation/DigitButton';
+import ACButton from './features/operation/ACButton';
 
 function App() {
   const operand = useSelector(getOperand)
@@ -13,7 +14,7 @@ function App() {
         <div className="text-white text-opacity-75">{operand.previousOperand} {operand.operation}</div>
         <div className="text-white text-xl">{operand.currentOperand}</div>
       </div>
-      <button className="col-span-2 text-xl border border-white bg-white bg-opacity-50 hover-focus">AC</button>
+      <ACButton/>
       <button className=" text-xl border border-white bg-white bg-opacity-50 hover-focus">DEL</button>
       <button className=" text-xl border border-white bg-white bg-opacity-50 hover-focus">÷</button>
       <DigitButton digit="1"/>
