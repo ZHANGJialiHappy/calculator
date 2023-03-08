@@ -1,18 +1,18 @@
 import { useDispatch } from 'react-redux'
-import { add_digit } from './operationSlice'
+import { choose_operation } from './operationSlice'
 
 type Props ={
-    digit: string;
+    operation: string;
 }
 
-function DigitButton({digit}: Props) {
+function OperationButton({operation}: Props) {
     const dispatch = useDispatch()
   return (
     <button className=" text-xl border border-white bg-white bg-opacity-50 hover-focus"
-    onClick = {()=> dispatch(add_digit(digit))}>
-      {digit}
+    onClick = {()=> dispatch(choose_operation(operation))}>
+      {operation}
     </button>
   )
 }
 
-export default DigitButton
+export default OperationButton;

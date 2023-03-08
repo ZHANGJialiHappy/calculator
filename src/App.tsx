@@ -3,6 +3,7 @@ import { useSelector} from 'react-redux';
 import { getOperand } from './features/operation/operationSlice';
 import DigitButton from './features/operation/DigitButton';
 import ACButton from './features/operation/ACButton';
+import OperationButton from './features/operation/OperationButton';
 
 function App() {
   const operand = useSelector(getOperand)
@@ -16,19 +17,19 @@ function App() {
       </div>
       <ACButton/>
       <button className=" text-xl border border-white bg-white bg-opacity-50 hover-focus">DEL</button>
-      <button className=" text-xl border border-white bg-white bg-opacity-50 hover-focus">÷</button>
+      <OperationButton operation="÷"/>
       <DigitButton digit="1"/>
       <DigitButton digit="2"/>
       <DigitButton digit="3"/>
-      <button className=" text-xl border border-white bg-white bg-opacity-50 hover-focus">*</button>
+      <OperationButton operation="*"/>
       <DigitButton digit="4"/>
       <DigitButton digit="5"/>
       <DigitButton digit="6"/>
-      <button className=" text-xl border border-white bg-white bg-opacity-50 hover-focus">+</button>
+      <OperationButton operation="+"/>
       <DigitButton digit="7"/>
       <DigitButton digit="8"/>
       <DigitButton digit="9"/>
-      <button className=" text-xl border border-white bg-white bg-opacity-50 hover-focus">-</button>
+      <OperationButton operation="-"/>
       <DigitButton digit="."/>
       <DigitButton digit="0"/>
       <button className="col-span-2 text-xl border border-white bg-white bg-opacity-50 hover-focus">=</button>
