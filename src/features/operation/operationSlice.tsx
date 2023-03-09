@@ -19,7 +19,7 @@ const evaluate = (operand: OperandState) => {
     const prev = parseFloat(previousOperand);
     const current = parseFloat(currentOperand);
     if (isNaN(prev) || isNaN(current)) return ""
-    let computation:number | string = ""
+    let computation: number | string = ""
     switch (operation) {
         case "÷":
             computation = prev / current
@@ -50,78 +50,79 @@ export const operationSlice = createSlice({
                     overwrite: false,
                 }
             }
-            else if (action.payload === "0" && state.currentOperand === "0") {
+            if (action.payload === "0" && state.currentOperand === "0") {
                 return state;
-            } else if (action.payload === "." && state.currentOperand.includes(".")) {
-                return state;
-            } else {
-                return {
-                    ...state,
-                    currentOperand: `${state.currentOperand || ""}${action.payload}`
-                }
             }
+            if (action.payload === "." && state.currentOperand.includes(".")) {
+                return state;
+            }
+            return {
+                ...state,
+                currentOperand: `${state.currentOperand || ""}${action.payload}`
+            }
+
         },
         choose_operation: (state, action: PayloadAction<string>) => {
             if (state.currentOperand === "" && state.previousOperand === "") {
                 return state;
-            } else if (state.currentOperand === "") {
+            }
+            if (state.currentOperand === "") {
                 return {
                     ...state,
                     operation: action.payload
                 };
-            } else if (state.previousOperand === "") {
+            }
+            if (state.previousOperand === "") {
                 return {
                     ...state,
                     operation: action.payload,
                     previousOperand: state.currentOperand,
-                    currentOperand: "",                    
-                };
-            } 
-            else {
-                return{
-                    ...state,
-                    previousOperand: evaluate(state),
-                    operation: action.payload,
                     currentOperand: "",
-    
                 };
             }
+            return {
+                ...state,
+                previousOperand: evaluate(state),
+                operation: action.payload,
+                currentOperand: "",
+
+            };
         },
         evaluate_operand: (state) => {
-            if(state.operation === "" || state.operation === "" || state.previousOperand === "" ) {
+            if (state.operation === "" || state.operation === "" || state.previousOperand === "") {
                 return state;
-            } else {
-                return {
-                    ...state,
-                    overwrite: true,
-                    previousOperand: "",
-                    operation: "",
-                    currentOperand: evaluate(state),
-                }
+            }
+            return {
+                ...state,
+                overwrite: true,
+                previousOperand: "",
+                operation: "",
+                currentOperand: evaluate(state),
             }
         },
         clear: () => {
-            return {...initialState};
+            return { ...initialState };
         },
         delete_digit: (state) => {
-            if(state.overwrite) {
+            if (state.overwrite) {
                 return {
                     ...state,
                     overwrite: false,
                     currentOperand: "",
-                }; 
-            } else if (state.currentOperand === "") {
+                };
+            }
+            if (state.currentOperand === "") {
                 return state;
-            } else if (state.currentOperand.length === 1) {
+            }
+            if (state.currentOperand.length === 1) {
                 return {
                     ...state,
                     currentOperand: "",
-                }; 
-            } else {
-                return {
-                    ...state,
-                    currentOperand: state.currentOperand.slice(0,-1),
-                }
+                };
+            }
+            return {
+                ...state,
+                currentOperand: state.currentOperand.slice(0, -1),
             }
         }
     }

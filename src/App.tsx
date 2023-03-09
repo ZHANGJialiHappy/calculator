@@ -10,11 +10,27 @@ import DeleteButton from './features/operation/DeleteButton';
 function App() {
   const operand = useSelector(getOperand)
 
+  const INTEGER_FORMATTER = new Intl.NumberFormat("en-us", {
+    maximumFractionDigits: 0,
+  })
+  // new
+  function formatOperand(operand: string) {
+    if (operand === "") {
+      return "";
+    }
+    const [integer, decimal] = operand.split("."); 
+    if (decimal === undefined) {
+      return `${INTEGER_FORMATTER.format(Number(integer))}`;
+    }
+    return `${INTEGER_FORMATTER.format(Number(integer))}.${decimal}`;
+  }
+
+
   return (
     <div className="grid grid-template">
       <div className="col-span-full bg-black bg-opacity-75 flex flex-col justify-around items-end p-3 break-all">
-        <div className="text-white text-opacity-75">{operand.previousOperand} {operand.operation}</div>
-        <div className="text-white text-xl">{operand.currentOperand}</div>
+        <div className="text-white text-opacity-75">{formatOperand(operand.previousOperand)} {operand.operation}</div>
+        <div className="text-white text-xl">{formatOperand(operand.currentOperand)}</div>
       </div>
       <ACButton />
       <DeleteButton />
