@@ -87,7 +87,7 @@ export const operationSlice = createSlice({
                 };
             }
         },
-        evaluateOprand: (state) => {
+        evaluate_operand: (state) => {
             if(state.operation === "" || state.operation === "" || state.previousOperand === "" ) {
                 return state;
             } else {
@@ -103,18 +103,30 @@ export const operationSlice = createSlice({
         clear: () => {
             return {...initialState};
         },
-        deleteOperand: (state) => {
+        delete_digit: (state) => {
             if(state.overwrite) {
                 return {
                     ...state,
                     overwrite: false,
                     currentOperand: "",
+                }; 
+            } else if (state.currentOperand === "") {
+                return state;
+            } else if (state.currentOperand.length === 1) {
+                return {
+                    ...state,
+                    currentOperand: "",
+                }; 
+            } else {
+                return {
+                    ...state,
+                    currentOperand: state.currentOperand.slice(0,-1),
                 }
-            } 
+            }
         }
     }
 })
 
 export const getOperand = (state: RootState) => state.operation;
-export const { add_digit, choose_operation, evaluateOprand, deleteOperand, clear  } = operationSlice.actions;
+export const { add_digit, choose_operation, evaluate_operand, delete_digit, clear } = operationSlice.actions;
 export default operationSlice.reducer;
