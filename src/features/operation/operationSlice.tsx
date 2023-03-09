@@ -5,11 +5,13 @@ export type OperandState = {
     currentOperand: string,
     previousOperand: string,
     operation: string,
+    overwrite: boolean,
 }
 const initialState = {
     currentOperand: "",
     previousOperand: "",
     operation: "",
+    overwrite: false,
 };
 
 const evaluate = (operand: OperandState) => {
@@ -33,7 +35,7 @@ const evaluate = (operand: OperandState) => {
             break
     }
     return computation.toString()
-}
+};
 
 
 export const operationSlice = createSlice({
@@ -41,7 +43,14 @@ export const operationSlice = createSlice({
     initialState,
     reducers: {
         add_digit: (state, action: PayloadAction<string>) => {
-            if (action.payload === "0" && state.currentOperand === "0") {
+            if (state.overwrite) {
+                return {
+                    ...state,
+                    currentOperand: action.payload,
+                    overwrite: false,
+                }
+            }
+            else if (action.payload === "0" && state.currentOperand === "0") {
                 return state;
             } else if (action.payload === "." && state.currentOperand.includes(".")) {
                 return state;
@@ -54,35 +63,58 @@ export const operationSlice = createSlice({
         },
         choose_operation: (state, action: PayloadAction<string>) => {
             if (state.currentOperand === "" && state.previousOperand === "") {
-                return state
+                return state;
             } else if (state.currentOperand === "") {
                 return {
                     ...state,
                     operation: action.payload
-                }
+                };
             } else if (state.previousOperand === "") {
                 return {
                     ...state,
                     operation: action.payload,
                     previousOperand: state.currentOperand,
                     currentOperand: "",                    
-                }
+                };
             } 
             else {
                 return{
+                    ...state,
                     previousOperand: evaluate(state),
                     operation: action.payload,
                     currentOperand: "",
     
+                };
+            }
+        },
+        evaluateOprand: (state) => {
+            if(state.operation === "" || state.operation === "" || state.previousOperand === "" ) {
+                return state;
+            } else {
+                return {
+                    ...state,
+                    overwrite: true,
+                    previousOperand: "",
+                    operation: "",
+                    currentOperand: evaluate(state),
                 }
             }
         },
         clear: () => {
             return {...initialState};
         },
+        deleteOperand: (state) => {
+            if(state.overwrite) {
+                return {
+                    ...state,
+                    overwrite: false,
+                    currentOperand: "",
+                }
+            } 
+        }
     }
 })
 
 export const getOperand = (state: RootState) => state.operation;
-export const { add_digit, clear, choose_operation } = operationSlice.actions;
+export const { add_digit, choose_operation, evaluateOprand, deleteOperand, clear  } = operationSlice.actions;
 export default operationSlice.reducer;

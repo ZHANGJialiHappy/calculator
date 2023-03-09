@@ -1,9 +1,11 @@
 import './App.css';
-import { useSelector} from 'react-redux';
+import { useSelector } from 'react-redux';
 import { getOperand } from './features/operation/operationSlice';
 import DigitButton from './features/operation/DigitButton';
 import ACButton from './features/operation/ACButton';
 import OperationButton from './features/operation/OperationButton';
+import EvaluateButton from './features/operation/EvaluateButton';
+import DeleteButton from './features/operation/DeleteButton';
 
 function App() {
   const operand = useSelector(getOperand)
@@ -14,24 +16,24 @@ function App() {
         <div className="text-white text-opacity-75">{operand.previousOperand} {operand.operation}</div>
         <div className="text-white text-xl">{operand.currentOperand}</div>
       </div>
-      <ACButton/>
-      <button className=" text-xl border border-white bg-white bg-opacity-50 hover-focus">DEL</button>
-      <OperationButton operation="÷"/>
-      <DigitButton digit="1"/>
-      <DigitButton digit="2"/>
-      <DigitButton digit="3"/>
-      <OperationButton operation="*"/>
-      <DigitButton digit="4"/>
-      <DigitButton digit="5"/>
-      <DigitButton digit="6"/>
-      <OperationButton operation="+"/>
-      <DigitButton digit="7"/>
-      <DigitButton digit="8"/>
-      <DigitButton digit="9"/>
-      <OperationButton operation="-"/>
-      <DigitButton digit="."/>
-      <DigitButton digit="0"/>
-      <button className="col-span-2 text-xl border border-white bg-white bg-opacity-50 hover-focus">=</button>
+      <ACButton />
+      <DeleteButton />
+      <OperationButton operation="÷" />
+      <DigitButton digit="1" />
+      <DigitButton digit="2" />
+      <DigitButton digit="3" />
+      <OperationButton operation="*" />
+      <DigitButton digit="4" />
+      <DigitButton digit="5" />
+      <DigitButton digit="6" />
+      <OperationButton operation="+" />
+      <DigitButton digit="7" />
+      <DigitButton digit="8" />
+      <DigitButton digit="9" />
+      <OperationButton operation="-" />
+      <DigitButton digit="." />
+      <DigitButton digit="0" />
+      <EvaluateButton />
     </div>
   );
 }
