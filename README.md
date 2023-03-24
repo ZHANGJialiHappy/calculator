@@ -1,4 +1,4 @@
-## stack
+## Stack
 
 1. CSS grid
 3. Tailwind CSS
@@ -6,7 +6,8 @@
 5. react
 6. TypeScript
 
-## demo
+## Demo
+
 Check my application on [`gh-pages`](https://zhangjialihappy.github.io/calculator/).
 
 ## Steps
