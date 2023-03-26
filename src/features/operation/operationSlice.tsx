@@ -89,7 +89,7 @@ export const operationSlice = createSlice({
             };
         },
         evaluate_operand: (state) => {
-            if (state.operation === "" || state.operation === "" || state.previousOperand === "") {
+            if (state.operation === "" || state.currentOperand === "" || state.previousOperand === "") {
                 return state;
             }
             return {
